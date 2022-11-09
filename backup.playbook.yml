@@ -1,0 +1,85 @@
+---
+- name: Setup Load balancer
+  hosts: localhost
+  tasks:
+    - name: Install Haproxy on local hosts
+      ansible.builtin.apt:
+        state: present
+        name: haproxy
+        update_cache: true
+- name: Install RKE2 server
+  hosts: control_plane
+  tasks:
+    # - name: Create config directroy
+    #   become: true
+    #   ansible.builtin.file:
+    #     owner: k8s
+    #     mode: 0700
+    #     path: /etc/rancher/rke2/config.yaml
+    #     state: file
+
+    - name: Download rke2 script
+      become: true
+      ansible.builtin.get_url:
+        owner: root
+        mode: 700
+        dest: /home/k8s/rke2-server
+        url: https://get.rke2.io
+
+    - name: Run script
+      become: true
+      ansible.builtin.command:
+        cmd: sh rke2-server --tls-san 10.240.0.2 --token 11798737ede28dd96742dfb0f785f805fd7319007c869d219ae4604d729811df
+        chdir: /home/k8s/
+      register: my_output
+      changed_when: my_output.rc != 0
+
+    - name: Start rke2 service
+      become: true
+      ansible.builtin.service:
+        name: rke2-server
+        state: started
+        enabled: true
+
+    - name: Delete Rke2 script file
+      become: true
+      ansible.builtin.file:
+        state: absent
+        path: /k8s/rke2-server
+
+    - name: Get Kube config
+      become: true
+      ansible.builtin.fetch:
+        src: /etc/rancher/rke2/rke2.yaml
+        dest: .
+
+    - name: Get rke2 token
+      become: true
+      ansible.builtin.fetch:
+        src: /var/lib/rancher/rke2/server/node-token
+        dest: .
+
+- name: Initiate kube client
+  hosts: kube_client, localhost
+  tasks:
+    - name: Install Kubectl
+      become: true
+      ansible.builtin.apt:
+        name: kubectl
+        state: present
+
+    - name: Download helm script
+      become: true
+      ansible.builtin.get_url:
+        owner: root
+        mode: 700
+        dest: /home/k8s/get_helm.sh
+        url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+
+    - name: Run helm script
+      become: true
+      ansible.builtin.command:
+        cmd: bash get_helm.sh
+        chdir: /home/k8s/
+      register: my_output
+      changed_when: my_output.rc != 0

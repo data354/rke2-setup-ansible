@@ -1,0 +1,52 @@
+global
+    log         127.0.0.1 local2
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    maxconn     4000
+    user        haproxy
+    group       haproxy
+    daemon
+    stats socket /var/lib/haproxy/stats
+
+defaults
+    mode                    http
+    log                     global
+    option                  httplog
+    option                  dontlognull
+    option                  http-server-close
+    option                  forwardfor       except 127.0.0.0/8
+    option                  redispatch
+    retries                 3
+    timeout http-request    10s
+    timeout queue           1m
+    timeout connect         10s
+    timeout client          1m
+    timeout server          1m
+    timeout http-keep-alive 10s
+    timeout check           10s
+    maxconn                 3000
+
+listen stats
+    bind *:{{ haproxy_stats_port }}
+    stats enable
+    stats uri /stats
+    stats refresh 2s
+    stats auth {{ haproxy_user }}:{{ haproxy_password }}
+
+listen k8s-connect-cluster
+    bind *:{{ join_cluster_port }}
+    mode tcp
+    option log-health-checks
+    {% for item in groups['control_plane'] -%}
+    server master1 {{ item }}:{{ join_cluster_port }} check check-ssl verify none inter 10000
+    {% endfor -%}
+
+listen kubernetes-apiserver-https
+    bind *:{{ apiserver_port }}
+    mode tcp
+    option log-health-checks
+    timeout client 1m
+    timeout server 1m
+    {% for item in groups['control_plane'] -%}
+    server master1 {{ item }}:{{ apiserver_port }} check check-ssl verify none inter 10000
+    {% endfor -%}

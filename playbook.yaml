@@ -1,0 +1,9 @@
+---
+- name: Setup Load balancer
+  hosts: localhost
+  tasks:
+    - name: Install Haproxy on local hosts
+      ansible.builtin.apt:
+        state: present
+        name: haproxy
+        update_cache: true
