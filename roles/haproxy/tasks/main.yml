@@ -1,6 +1,7 @@
 ---
 - name: Install Haproxy on local hosts
   notify: Enable Haproxy Service
+  become: true
   block:
     - name: Install Haproxy
       ansible.builtin.apt:
@@ -9,7 +10,7 @@
         update_cache: true
 
     - name: Initialize Haproxy Config
-      become: true
       ansible.builtin.template:
+        mode: "700"
         src: haproxy.cfg
         dest: /etc/haproxy/haproxy.cfg

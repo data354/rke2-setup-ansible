@@ -1,6 +1,6 @@
 ---
 - name: Enable Haproxy Service
-  ansible.builtin.service: 
+  ansible.builtin.service:
     name: haproxy
     state: started
     enable: true

@@ -7,26 +7,26 @@
     - name: Download rke2 script
       ansible.builtin.get_url:
         owner: root
-        mode: 700
-        dest: /home/{{user}}/rke2-server
+        mode: "700"
+        dest: /home/{{ user }}/rke2-server
         url: https://get.rke2.io
 
     - name: Create Config Folder
       ansible.builtin.file:
-        mode: 700
+        mode: "700"
         path: /etc/rancher/rke2
         state: directory
 
     - name: Set rke2 config
       ansible.builtin.template:
-        mode: 700
+        mode: "700"
         src: rke2-config.j2
         dest: /etc/rancher/rke2/rke2.config
 
     - name: Run script for master server
       when: master
       ansible.builtin.command:
-        chdir: /home/{{user}}/
+        chdir: /home/{{ user }}/
         cmd: sh rke2-server --token {{ cluster_token }}
       register: output
       changed_when: output.rc != 0
@@ -34,7 +34,7 @@
     - name: Run script for others servers
       when: not master
       ansible.builtin.command:
-        chdir: /home/{{user}}/
+        chdir: /home/{{ user }}/
         cmd: sh rke2-server --token {{ cluster_token }}
       register: output
       changed_when: output.rc != 0
@@ -43,4 +43,4 @@
       become: true
       ansible.builtin.file:
         state: absent
-        path: /{{user}}/rke2-server
+        path: /{{ user }}/rke2-server
