@@ -1,0 +1,9 @@
+{% if master %}
+token: {{ cluster_token }}
+{% else %}
+server: https://{{ loadbalancer_address }}:{{ join_cluster_port }}
+{% endif %}
+tls-san:
+{% for item in loadbalancer_addresses -%}
+    - {{ item }}
+{% endfor -%}

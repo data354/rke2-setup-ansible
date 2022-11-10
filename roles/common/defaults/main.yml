@@ -1,4 +1,6 @@
 ---
-loadbalancer_address: ["10.240.0.2", "master-ansible"]
+loadbalancer_addresses: ["10.240.0.2", "master-ansible"]
 join_cluster_port: 9345
 apiserver_port: 6443
+cluster_token: fbf77b7e4e40d763ad4df32ec9e02d877b112eab
+user: k8s
