@@ -31,7 +31,7 @@ listen stats
     stats enable
     stats uri /stats
     stats refresh 2s
-    stats auth {{ haproxy_user }}:{{ haproxy_password }}
+    stats auth {{ haproxy_admin_user }}:{{ haproxy_admin_password }}
 
 listen k8s-connect-cluster
     bind *:{{ join_cluster_port }}
