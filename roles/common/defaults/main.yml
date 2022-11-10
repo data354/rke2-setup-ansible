@@ -1,0 +1,4 @@
+---
+load_balancer_address: 10.240.0.2
+join_cluster_port: 9345
+apiserver_port: 6443
