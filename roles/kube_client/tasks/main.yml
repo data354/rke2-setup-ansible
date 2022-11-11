@@ -3,7 +3,7 @@
   become: true
   block:
     - name: Download kubeconfig file
-      delegate_to: control_plane[0]
+      delegate_to: control-plane-1
       ansible.builtin.slurp:
         src: /etc/rancher/rke2/rke2.yaml
       register: kubeconfig
@@ -11,15 +11,15 @@
     - name: Create kube config Folder
       ansible.builtin.file:
         state: directory
-        mode: "700"
+        mode: "707"
         path: "{{ kube_config_directory }}"
 
     - name: Create local kubeconfig file
-      ansible.builtin.file:
-        content: "{{ kubeconfig | b64decode | from_yaml }}"
-        path: "{{ kube_config_directory }}/config"
-        mode: "700"
-        state: present
+      ansible.builtin.copy:
+        content: "{{ kubeconfig.content | b64decode | from_yaml | to_nice_yaml(indent=2) }}"
+        dest: "{{ kube_config_directory }}/config"
+        mode: "707"
+        backup: true
 
     - name: Replace api server ip by loadbalancer ip
       ansible.builtin.replace:
