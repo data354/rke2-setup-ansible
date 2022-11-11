@@ -34,7 +34,7 @@
       when: not master | bool
       ansible.builtin.command:
         chdir: /home/{{ user }}/
-        cmd: sh rke2-server --token {{ cluster_token }}
+        cmd: sh rke2-server
       register: output
       changed_when: output.rc != 0
 

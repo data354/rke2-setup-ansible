@@ -8,3 +8,8 @@
   hosts: control_plane
   roles:
     - rke2/server
+
+- name: Initialize kube client
+  hosts: localhost
+  roles:
+    - kube_client

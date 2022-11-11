@@ -1,8 +1,8 @@
 ---
 galaxy_info:
-  role_name: rke2_agent
+  role_name: kube_client
   author: data354
-  description: A set of settings and variables for rke2-agent deployment
+  description: A set of settings and variables for kubectl and helm installation
   license: MIT
   min_ansible_version: "2.10"
   platforms:
@@ -10,4 +10,4 @@ galaxy_info:
       versions:
         - "all"
 dependencies:
-  - name: common
+  - role: common
