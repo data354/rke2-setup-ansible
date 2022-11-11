@@ -2,7 +2,6 @@
 - name: Install rke2-server
   notify: Start rke2-server service
   become: true
-  when: not initialized
   block:
     - name: Download rke2 script
       ansible.builtin.get_url:
@@ -21,18 +20,18 @@
       ansible.builtin.template:
         mode: "700"
         src: rke2-config.j2
-        dest: /etc/rancher/rke2/rke2.config
+        dest: /etc/rancher/rke2/config.yaml
 
     - name: Run script for master server
-      when: master
+      when: master | bool
       ansible.builtin.command:
         chdir: /home/{{ user }}/
-        cmd: sh rke2-server --token {{ cluster_token }}
+        cmd: sh rke2-server
       register: output
       changed_when: output.rc != 0
 
     - name: Run script for others servers
-      when: not master
+      when: not master | bool
       ansible.builtin.command:
         chdir: /home/{{ user }}/
         cmd: sh rke2-server --token {{ cluster_token }}

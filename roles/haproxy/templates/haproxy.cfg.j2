@@ -14,7 +14,7 @@ defaults
     option                  httplog
     option                  dontlognull
     option                  http-server-close
-    option                  forwardfor       except 127.0.0.0/8
+    option forwardfor       except 127.0.0.0/8
     option                  redispatch
     retries                 3
     timeout http-request    10s
@@ -38,8 +38,8 @@ listen k8s-connect-cluster
     mode tcp
     option log-health-checks
     {% for item in groups['control_plane'] -%}
-    server master1 {{ item }}:{{ join_cluster_port }} check check-ssl verify none inter 10000
-    {% endfor -%}
+    server master{{ loop.index }} {{ item }}:{{ join_cluster_port }} check check-ssl verify none inter 10000
+    {% endfor %}
 
 listen kubernetes-apiserver-https
     bind *:{{ apiserver_port }}
@@ -48,5 +48,5 @@ listen kubernetes-apiserver-https
     timeout client 1m
     timeout server 1m
     {% for item in groups['control_plane'] -%}
-    server master1 {{ item }}:{{ apiserver_port }} check check-ssl verify none inter 10000
+    server master{{ loop.index }} {{ item }}:{{ apiserver_port }} check check-ssl verify none inter 10000
     {% endfor -%}

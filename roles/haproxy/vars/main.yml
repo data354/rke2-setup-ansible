@@ -1,3 +1,4 @@
 ---
 haproxy_admin_user: xkdy
 haproxy_admin_password: dimanche54
+haproxy_stats_port: 9000
