@@ -2,7 +2,7 @@
 - name: Debug info
   ansible.builtin.debug:
     msg: Handler ok
-    
+
 - name: Start rke2-server service
   become: true
   ansible.builtin.service:

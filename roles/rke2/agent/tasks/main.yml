@@ -22,7 +22,7 @@
         dest: /etc/rancher/rke2/config.yaml
 
     - name: Run rke2 script
-      environment: 
+      environment:
         INSTALL_RKE2_TYPE: "agent"
       ansible.builtin.command:
         chdir: /home/{{ user }}/
@@ -48,5 +48,3 @@
         name: rke2-agent
         state: started
         enabled: true
-
-    
