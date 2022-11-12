@@ -1,12 +1,12 @@
 ---
-- name: Install rke2-server
+- name: Install rke2-agent
   become: true
   block:
     - name: Download rke2 script
       ansible.builtin.get_url:
         owner: root
         mode: "700"
-        dest: /home/{{ user }}/rke2-server
+        dest: /home/{{ user }}/rke2-agent
         url: https://get.rke2.io
 
     - name: Create Config Folder
@@ -22,38 +22,31 @@
         dest: /etc/rancher/rke2/config.yaml
 
     - name: Run rke2 script
+      environment: 
+        INSTALL_RKE2_TYPE: "agent"
       ansible.builtin.command:
         chdir: /home/{{ user }}/
-        cmd: sh rke2-server
+        cmd:  sh rke2-agent
       register: output
       changed_when: output.rc !=0
 
     - name: Delete Rke2 script file
-      become: true
       ansible.builtin.file:
         state: absent
-        path: /{{ user }}/rke2-server
+        path: /{{ user }}/rke2-agent
 
-- name: Run primary server service
+- name: Run agent service
   become: true
-  when: master | bool
   block:
-    - name: Start rke2-server service
-      become: true
-      ansible.builtin.service:
-        name: rke2-server
-        state: restarted
-        enabled: true
-
     - name: Wait for port 9345 to become open on the host, don't start checking for 10 seconds
       ansible.builtin.wait_for:
         host: control-plane-1
         port: 9345
 
-- name: Run secondary server service
-  become: true
-  when: not master | bool
-  ansible.builtin.service:
-    name: rke2-server
-    state: restarted
-    enabled: true
+    - name: Start rke2-agent service
+      ansible.builtin.service:
+        name: rke2-agent
+        state: restarted
+        enabled: true
+
+    

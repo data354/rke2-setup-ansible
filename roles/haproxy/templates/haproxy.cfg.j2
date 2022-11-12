@@ -37,9 +37,8 @@ listen k8s-connect-cluster
     bind *:{{ join_cluster_port }}
     mode tcp
     option log-health-checks
-    balance first
     {% for item in groups['control_plane'] -%}
-    server master{{ loop.index }} {{ item }}:{{ join_cluster_port }} maxconn 5 check check-ssl verify none inter 10000
+    server master{{ loop.index }} {{ item }}:{{ join_cluster_port }} check check-ssl verify none inter 10000
     {% endfor %}
 
 listen kubernetes-apiserver-https
@@ -48,7 +47,6 @@ listen kubernetes-apiserver-https
     option log-health-checks
     timeout client 1m
     timeout server 1m
-    balance first
     {% for item in groups['control_plane'] -%}
-    server master{{ loop.index }} {{ item }}:{{ apiserver_port }} maxconn 5 check check-ssl verify none inter 10000
+    server master{{ loop.index }} {{ item }}:{{ apiserver_port }} check check-ssl verify none inter 10000
     {% endfor -%}

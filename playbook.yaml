@@ -4,10 +4,15 @@
   roles:
     - haproxy
 
-- name: Setup Rke2 serv
+- name: Setup Rke2 server
   hosts: control_plane
   roles:
     - rke2/server
+
+- name: Setup Rke2 agent
+  hosts: data_plane
+  roles:
+    - rke2/agent
 
 - name: Initialize kube client
   hosts: localhost
