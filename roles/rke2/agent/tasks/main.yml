@@ -46,7 +46,7 @@
     - name: Start rke2-agent service
       ansible.builtin.service:
         name: rke2-agent
-        state: restarted
+        state: started
         enabled: true
 
     
