@@ -1,0 +1,5 @@
+---
+- name: Install prerequisies apps
+  hosts: localhost
+  roles:
+    - name: apps/cert_manager
