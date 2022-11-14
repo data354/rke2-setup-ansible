@@ -9,8 +9,18 @@
         name: haproxy
         update_cache: true
 
+    - name: Add haproxy bin dir to system-wide $PATH
+      ansible.builtin.copy:
+        dest: /usr/bin
+        src: /usr/sbin/haproxy
+        mode: 0751
+
     - name: Initialize Haproxy Config
       ansible.builtin.template:
-        mode: "700"
+        mode: 0700
         src: haproxy.cfg.j2
         dest: /etc/haproxy/haproxy.cfg
+
+    - name: Set haproxy config directory
+      ansible.builtin.command:
+        cmd: haproxy -f {{ haproxy_config_dir }}
