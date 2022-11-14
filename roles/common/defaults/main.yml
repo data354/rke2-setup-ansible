@@ -1,5 +1,6 @@
 ---
 loadbalancer_addresses: ["10.240.0.2", "master-ansible"]
+loadbalancer_public_address: "34.121.151.84"
 join_cluster_port: 9345
 apiserver_port: 6443
 cluster_token: fbf77b7e4e40d763ad4df32ec9e02d877b112eab
