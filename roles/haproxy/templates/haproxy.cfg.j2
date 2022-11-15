@@ -52,7 +52,7 @@ listen kubernetes-apiserver-https
     {% endfor -%}
 
 listen rancher-http
-    bind *:80
+    bind {{ public_domain_name }}:80
     mode tcp
     option tcplog
     {% for item in groups['k8s'] -%}
@@ -60,7 +60,7 @@ listen rancher-http
     {% endfor -%}
 
 listen rancher-https
-    bind *:443
+    bind {{ public_domain_name }}:443
     mode tcp
     option tcplog
     {% for item in groups['k8s'] -%}
