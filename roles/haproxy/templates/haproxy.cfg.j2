@@ -33,7 +33,7 @@ listen stats
     stats refresh 2s
     stats auth {{ haproxy_admin_user }}:{{ haproxy_admin_password }}
 
-listen k8s-connect-cluster
+listen kubernetes-connect-cluster
     bind *:{{ join_cluster_port }}
     mode tcp
     option log-health-checks
@@ -49,4 +49,20 @@ listen kubernetes-apiserver-https
     timeout server 1m
     {% for item in groups['control_plane'] -%}
     server master{{ loop.index }} {{ item }}:{{ apiserver_port }} check check-ssl verify none inter 10000
+    {% endfor -%}
+
+listen rancher-http
+    bind *:80
+    mode tcp
+    option tcplog
+    {% for item in groups['k8s'] -%}
+    server master{{ loop.index }} {{ item }}:80 check check-ssl verify none inter 10000
+    {% endfor -%}
+
+listen rancher-https
+    bind *:443
+    mode tcp
+    option tcplog
+    {% for item in groups['k8s'] -%}
+    server master{{ loop.index }} {{ item }}:443 check check-ssl verify none inter 10000
     {% endfor -%}
