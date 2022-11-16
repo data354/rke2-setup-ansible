@@ -49,20 +49,18 @@ listen kubernetes-apiserver-https
     timeout server 1m
     {% for item in groups['control_plane'] -%}
     server master{{ loop.index }} {{ item }}:{{ apiserver_port }} check check-ssl verify none inter 10000
-    {% endfor -%}
+    {% endfor %}
 
-listen rancher-http
-    bind {{ public_domain_name }}:80
-    mode tcp
-    option tcplog
+listen cm-acme-http-solver
+    bind *:80
     {% for item in groups['k8s'] -%}
-    server master{{ loop.index }} {{ item }}:80 check check-ssl verify none inter 10000
-    {% endfor -%}
+    server {{ item }} {{ item }}:80 check
+    {% endfor %}
 
 listen rancher-https
-    bind {{ public_domain_name }}:443
+    bind *:443
     mode tcp
     option tcplog
     {% for item in groups['k8s'] -%}
-    server master{{ loop.index }} {{ item }}:443 check check-ssl verify none inter 10000
+    server {{ item }} {{ item }}:443 check check-ssl verify none inter 10000
     {% endfor -%}
