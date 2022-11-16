@@ -9,4 +9,4 @@
 
 - name: Install the prometheus-kube Helm chart
   ansible.builtin.command:
-    cmd:  helm install {{ release_name }} prometheus-community/kube-prometheus-stack
+    cmd: helm install {{ release_name }} prometheus-community/kube-prometheus-stack

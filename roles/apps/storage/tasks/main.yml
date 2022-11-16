@@ -1,0 +1,12 @@
+---
+- name: Add the Longhorn Helm repository
+  ansible.builtin.command:
+    cmd: helm repo add longhorn https://charts.longhorn.io
+
+- name: Update your local Helm chart repository cache
+  ansible.builtin.command:
+    cmd: helm repo update
+
+- name: Install the prometheus-kube Helm chart
+  ansible.builtin.command:
+    cmd: helm install {{ release_name }} longhorn/longhorn --namespace {{ release_namespace }} --create-namespace

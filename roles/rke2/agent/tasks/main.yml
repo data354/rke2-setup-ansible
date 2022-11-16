@@ -26,7 +26,7 @@
         INSTALL_RKE2_TYPE: "agent"
       ansible.builtin.command:
         chdir: /home/{{ user }}/
-        cmd:  sh rke2-agent
+        cmd: sh rke2-agent
       register: output
       changed_when: output.rc !=0
 
