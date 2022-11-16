@@ -1,0 +1,10 @@
+galaxy_info:
+  role_name: prometheus-stack
+  author: data354
+  description: A set of settings and variables for monitoring stack deployment
+  license: MIT
+  min_ansible_version: "2.10"
+  platforms:
+    - name: Debian
+      versions:
+        - "all"

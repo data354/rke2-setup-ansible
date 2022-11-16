@@ -38,7 +38,7 @@ listen kubernetes-connect-cluster
     mode tcp
     option log-health-checks
     {% for item in groups['control_plane'] -%}
-    server {{ index }} {{ item }}:{{ join_cluster_port }} check check-ssl verify none inter 10000
+    server {{ item }} {{ item }}:{{ join_cluster_port }} check check-ssl verify none inter 10000
     {% endfor %}
 
 listen kubernetes-apiserver-https
@@ -48,7 +48,7 @@ listen kubernetes-apiserver-https
     timeout client 1m
     timeout server 1m
     {% for item in groups['control_plane'] -%}
-    server {{ index }} {{ item }}:{{ apiserver_port }} check check-ssl verify none inter 10000
+    server {{ item }} {{ item }}:{{ apiserver_port }} check check-ssl verify none inter 10000
     {% endfor %}
 
 listen cm-acme-http-solver
