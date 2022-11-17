@@ -2,7 +2,7 @@
 release_name: "rancher"
 release_namespace: "cattle-system"
 rancher_hostname: "{{ public_domain_name }}"
-rancher_bootstrappassword: dimanche54
+rancher_bootstrapPassword: dimanche54
 rancher_ingress_tls_source: letsEncrypt
-rancher_letsencrypt_email: edy.koffi@data3354.com
-rancher_letsencrypt_ingress_class: nginx
+rancher_letsEncrypt_email: edy.koffi@data3354.com
+rancher_letsEncrypt_ingress_class: nginx

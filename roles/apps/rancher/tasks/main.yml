@@ -15,7 +15,7 @@
       --create-namespace
       --replace
       --set hostname={{ rancher_hostname }}
-      --set bootstrapPassword={{ rancher_bootstrappassword }}
+      --set bootstrapPassword={{ rancher_bootstrapPassword }}
       --set ingress.tls.source={{ rancher_ingress_tls_source }}
-      --set letsEncrypt.email={{ rancher_letsencrypt_email }}
-      --set letsEncrypt.ingress.class={{ rancher_letsencrypt_ingress_class }}
+      --set letsEncrypt.email={{ rancher_letsEncrypt_email }}
+      --set letsEncrypt.ingress.class={{ rancher_letsEncrypt_ingress_class }}
