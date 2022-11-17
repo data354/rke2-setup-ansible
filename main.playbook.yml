@@ -1,9 +1,9 @@
 ---
-- name: Prerequises
-  ansible.builtin.import_playbook: prerequises.playbook.yml
-
 - name: Cluster
   ansible.builtin.import_playbook: cluster.playbook.yml
+  
+- name: Prerequises
+  ansible.builtin.import_playbook: prerequises.playbook.yml
 
 - name: Apps
   ansible.builtin.import_playbook: apps.playbook.yml

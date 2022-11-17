@@ -7,3 +7,6 @@ apiserver_port: 6443
 cluster_token: fbf77b7e4e40d763ad4df32ec9e02d877b112eab
 user: k8s
 kube_config_directory: /home/{{ user }}/.kube
+install_rancher: false
+install_longhorn: true
+install_prometheus_stack: true

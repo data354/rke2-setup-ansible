@@ -1,8 +1,8 @@
 ---
-- name: Install rancher admin
-  hosts: localhost
-  roles:
-    - name: apps/rancher
+# - name: Install rancher admin
+#   hosts: localhost
+#   roles:
+#     - name: apps/rancher
 
 - name: Install monitoring stack
   hosts: localhost

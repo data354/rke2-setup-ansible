@@ -1,12 +1,15 @@
 ---
-- name: Add the Monitoring Helm repository
-  ansible.builtin.command:
-    cmd: helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+- name: Install Monitoring Stack
+  when: install_prometheus_stack
+  block:
+    - name: Add the Monitoring Helm repository
+      ansible.builtin.command:
+        cmd: helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 
-- name: Update your local Helm chart repository cache
-  ansible.builtin.command:
-    cmd: helm repo update
+    - name: Update your local Helm chart repository cache
+      ansible.builtin.command:
+        cmd: helm repo update
 
-- name: Install the prometheus-kube Helm chart
-  ansible.builtin.command:
-    cmd: helm install {{ release_name }} prometheus-community/kube-prometheus-stack
+    - name: Install the prometheus-kube Helm chart
+      ansible.builtin.command:
+        cmd: helm install {{ release_name }} prometheus-community/kube-prometheus-stack
