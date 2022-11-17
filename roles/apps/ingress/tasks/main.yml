@@ -1,0 +1,12 @@
+---
+- name: Add the ingress controller nginx Helm repository
+  ansible.builtin.command:
+    cmd: helm repo add nginx-stable https://helm.nginx.com/stable
+
+- name: Update your local Helm chart repository cache
+  ansible.builtin.command:
+    cmd: helm repo update
+
+- name: Install the nginx ingress Helm chart
+  ansible.builtin.command:
+    cmd: helm install {{ release_name }} nginx-stable/nginx-ingress
