@@ -1,5 +1,5 @@
 ---
-- name: Install nodes prerequisies 
+- name: Install nodes prerequisies
   hosts: k8s
   roles:
     - prerequises
@@ -8,3 +8,4 @@
   hosts: localhost
   roles:
     - apps/cert_manager
+    - apps/ingress
