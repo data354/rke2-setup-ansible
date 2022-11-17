@@ -6,7 +6,7 @@
       ansible.builtin.apt:
         state: present
         name: open-iscsi
-        update_cache: true
+        force: true
 
     - name: Active iscsid service
       ansible.builtin.service:

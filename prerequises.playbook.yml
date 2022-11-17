@@ -1,6 +1,10 @@
 ---
+- name: Install nodes prerequisies 
+  hosts: k8s
+  roles:
+    - prerequises
+
 - name: Install prerequisies apps
   hosts: localhost
   roles:
     - apps/cert_manager
-    - apps/prerequises
