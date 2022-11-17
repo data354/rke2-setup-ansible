@@ -1,5 +1,4 @@
 ---
-
 - name: Install rancher admin
   hosts: localhost
   roles:
