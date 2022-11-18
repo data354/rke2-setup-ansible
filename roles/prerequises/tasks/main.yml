@@ -1,7 +1,7 @@
 ---
-- name: open-iscsi
+- name: Open-iscsi
   become: true
-  block: 
+  block:
     - name: Install open-iscsi
       ansible.builtin.apt:
         state: present

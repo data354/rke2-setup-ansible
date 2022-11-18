@@ -4,11 +4,6 @@
   roles:
     - name: apps/rancher
 
-- name: Install monitoring stack
-  hosts: localhost
-  roles:
-    - name: apps/monitoring
-
 - name: Install storage proviser (longhorn)
   hosts: localhost
   roles:
