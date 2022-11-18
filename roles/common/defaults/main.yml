@@ -9,4 +9,3 @@ user: k8s
 kube_config_directory: /home/{{ user }}/.kube
 install_rancher: false
 install_longhorn: true
-install_prometheus_stack: true
