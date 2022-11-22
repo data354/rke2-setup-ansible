@@ -1,9 +1,4 @@
 ---
-- name: Setup Load balancer
-  hosts: localhost
-  roles:
-    - haproxy
-
 - name: Setup Rke2 server
   hosts: control_plane
   roles:
@@ -13,8 +8,3 @@
   hosts: data_plane
   roles:
     - rke2/agent
-
-- name: Initialize kube client
-  hosts: localhost
-  roles:
-    - kube_client

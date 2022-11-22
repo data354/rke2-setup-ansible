@@ -4,7 +4,7 @@
   roles:
     - prerequises
 
-- name: Install prerequisies apps
+- name: Install apps prerequises
   hosts: localhost
   roles:
     - apps/cert_manager

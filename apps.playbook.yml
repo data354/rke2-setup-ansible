@@ -2,9 +2,9 @@
 - name: Install rancher admin
   hosts: localhost
   roles:
-    - name: apps/rancher
+    - apps/rancher
 
 - name: Install storage proviser (longhorn)
   hosts: localhost
   roles:
-    - name: apps/storage
+    - apps/storage
