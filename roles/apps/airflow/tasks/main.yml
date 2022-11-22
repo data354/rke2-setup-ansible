@@ -1,0 +1,8 @@
+---
+- name: Create Airflow namespace
+  ansible.builtin.command:
+    cmd: kubectl create ns airflow
+
+- name: Create Secret with machine private key
+  ansible.builtin.command:
+    cmd: kubectl create secret generic ssh_key --from-file={{ pr_key_file }} -n airflow
