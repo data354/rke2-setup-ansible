@@ -2,7 +2,28 @@
 - name: Create Airflow namespace
   ansible.builtin.command:
     cmd: kubectl create ns airflow
+  register: output1
+  changed_when: output1.rc != 0
 
 - name: Create Secret with machine private key
   ansible.builtin.command:
     cmd: kubectl create secret generic ssh_key --from-file={{ pr_key_file }} -n airflow
+  register: output2
+  changed_when: output2.rc != 0
+  
+
+- name: Get host public key
+  ansible.builtin.command:
+    cmd: cat {{ pr_key_file }}.pub
+  register: output3
+  changed_when: output3.rc != 0
+
+- name: A helpful reminder of what to look out for post-update
+  ansible.builtin.pause:
+    prompt: |
+
+      {{ output3.stdout }}
+
+      Assurer-vous d'ajouter la clé ci-dessus sur  votre compte github pour la suite.
+      Une fois fait, appuyer entrer pour continuer la procedure.
+

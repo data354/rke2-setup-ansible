@@ -8,3 +8,8 @@
   hosts: localhost
   roles:
     - apps/storage
+
+- name: Deploy Airflow stack
+  hosts: localhost
+  roles:
+    - apps/airflow

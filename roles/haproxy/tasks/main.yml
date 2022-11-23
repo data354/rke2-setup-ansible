@@ -3,11 +3,17 @@
   notify: Enable Haproxy Service
   become: true
   block:
-    - name: Install Haproxy
+    - name: Install Haproxy on Debian system
+      when: ansible_facts['os_family'] == "Debian"
       ansible.builtin.apt:
         state: present
         name: haproxy
-        update_cache: true
+
+    - name: Install Haproxy on RedHat system
+      when: ansible_facts['os_family'] == "RedHat"
+      ansible.builtin.apt:
+        state: present
+        name: haproxy
 
     - name: Add haproxy bin dir to system-wide $PATH
       ansible.builtin.copy:

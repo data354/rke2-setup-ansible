@@ -1,2 +1,2 @@
 ---
-pr_key_file: "/home/k8s/"
+pr_key_file: "/home/{{ user }}/.ssh/id_rsa"
