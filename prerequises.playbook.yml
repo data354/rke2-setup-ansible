@@ -1,10 +1,10 @@
 ---
-- name: Install nodes prerequisies
-  hosts: k8s
-  roles:
-    - prerequises
-
-- name: Install apps prerequises
+- name: Install haproxy
   hosts: localhost
   roles:
-    - apps/cert_manager
+    - prerequises/haproxy
+
+- name: Install open iscsi
+  hosts: k8s
+  roles:
+    - prerequises/open_iscsi

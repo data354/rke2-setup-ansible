@@ -53,10 +53,10 @@ It takes into account the following features:
 
 There are four playbooks:
 
+* `prerequises.playbook.yml`  :
 * `cluster.playbook.yml` : this playbook contains the roles for the creatin of the cluster (Server and agent)
-* `prerequises.playbook.yml`  : 
+* `client.playbook.yml` : this playbook contains locak software to manage cluster
 * `apps.playbook.yml` : this playbook contains contains the different applications of the stack to install
-* `local.playbook.yml` : this playbook contains locak software to manage cluster
 
 All these playbooks are executed in the previous order thanks to the playbook `main.playbook.yml` which integrates them all.
 

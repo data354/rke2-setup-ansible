@@ -1,4 +1,9 @@
 ---
+- name: Install apps prerequises
+  hosts: localhost
+  roles:
+    - apps/cert_manager
+
 - name: Install rancher admin
   hosts: localhost
   roles:

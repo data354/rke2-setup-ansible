@@ -1,5 +1,5 @@
 {% if master | bool == false %}
-server: https://{{ groups['control_plane'][0] }}:{{ join_cluster_port }}
+server: https://{{ loadbalancer_addresses[0] }}:{{ join_cluster_port }}
 {% endif %}
 token: {{ cluster_token }}
 tls-san:

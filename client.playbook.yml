@@ -1,9 +1,4 @@
 ---
-- name: Setup Load balancer
-  hosts: localhost
-  roles:
-    - haproxy
-
 - name: Initialize kube client
   hosts: localhost
   roles:
