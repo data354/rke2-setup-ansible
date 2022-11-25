@@ -7,7 +7,7 @@
 
 - name: Create Secret with machine private key
   ansible.builtin.command:
-    cmd: kubectl create secret generic airflow-git-secret --from-file=gitSshKey={{ pr_key_file }} -n airflow
+    cmd: kubectl create secret generic {{ sshKeySecret }} --from-file=gitSshKey={{ pr_key_file }} -n {{ release_namespace }}
   register: output2
   changed_when: output2.rc != 0
   
@@ -45,8 +45,17 @@
           --set airflow.enabled=true 
           --set airflow.dags.gitSync.branch=master 
           --set airflow.dags.gitSync.enabled=true 
-          --set airflow.dags.gitSync.repo={{ dags_repo }} 
-          --set airflow.dags.gitSync.sshKeySecret={{ sshKeysecret }} 
+          --set airflow.dags.gitSync.repo={{ dags_repo }}
+          --set airflow.dags.gitSync.sshKeySecret={{ sshKeySecret }}
           --set airflow.dags.gitSync.subPath={{ subpath }} 
-          --set airflow.images.airflow.repository={{ dags_repo }}
+          --set airflow.images.airflow.repository={{ img_registry }}
           --set airflow.images.airflow.tag={{ tag }}
+          --debug
+
+    - name: Create cluster role binding
+      ansible.builtin.command:
+        cmd: |
+          kubectl create clusterrolebinding service-all-pod
+          --namespace {{ release_namespace }}
+          --clusterrole=service-all 
+          --serviceaccount={{ release_namespace }}:{{ release_name }}-airflow-worker
