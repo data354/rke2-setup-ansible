@@ -1,2 +1,4 @@
 ---
 pr_key_file: "/home/{{ user }}/.ssh/id_rsa"
+release_name: "rancher"
+release_namespace: "cattle-system"

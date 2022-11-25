@@ -27,3 +27,20 @@
       Assurer-vous d'ajouter la clé ci-dessus sur votre compte github pour créer la connection avec Airflow.
       Une fois ceci fait, appuyer entrer pour continuer l'installation.
 
+- name: Install Airflow
+  block:
+    - name: Add the Airflow Helm repository
+      ansible.builtin.command:
+        cmd: helm repo add airflow  https://data354.github.io/Helmschart354/Stack/
+
+    - name: Update your local Helm chart repository cache
+      ansible.builtin.command:
+        cmd: helm repo update
+
+    - name: Install the airflow Helm chart
+      ansible.builtin.command:
+        cmd: |
+          helm install {{ release_name }} rancher-stable/rancher
+          --namespace {{ release_namespace }}
+          --replace
+          --set content={{ rancher_hostname }}

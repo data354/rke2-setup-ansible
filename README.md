@@ -15,6 +15,7 @@ It takes into account the following features:
 
 ### Architecture
 
+![Architecture img](https://raw.githubusercontent.com/data354/rke2-setup-ansible/main/archtitecture_setup_rke2.png)
 
 ### Prerequises
 
@@ -43,3 +44,22 @@ It takes into account the following features:
   * Master ansible public key must be copied on each machine of the k8s cluster to avoid typing password during playbooks execution
 
 ### Process
+
+**Test node connection**
+
+`ansible -i inventory.ini -m ping all`
+
+**Informations about playbooks**
+
+There are four playbooks:
+
+* `cluster.playbook.yml` : this playbook contains the roles for the creatin of the cluster (Server and agent)
+* `prerequises.playbook.yml`  : 
+* `apps.playbook.yml` : this playbook contains contains the different applications of the stack to install
+* `local.playbook.yml` : this playbook contains locak software to manage cluster
+
+All these playbooks are executed in the previous order thanks to the playbook `main.playbook.yml` which integrates them all.
+
+**Setup the cluster**
+
+To launch the project, run the command : `ansible-playbook -i inventory.ini main.playbook.yml`
