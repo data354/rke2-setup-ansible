@@ -40,10 +40,8 @@
   block:
     - name: Start rke2-server service
       become: true
-      ansible.builtin.service:
-        name: rke2-server
-        state: started
-        enabled: true
+      ansible.builtin.cmd:
+        cmd: systemctl start rke2-server
 
     - name: Wait for port 9345 to become open on the host
       ansible.builtin.wait_for:
@@ -53,8 +51,5 @@
 - name: Run secondary server service
   become: true
   when: not master | bool
-  # ignore_errors: true
-  ansible.builtin.service:
-    name: rke2-server
-    state: started
-    enabled: true
+  ansible.builtin.command:
+    cmd: systemctl start rke2-server

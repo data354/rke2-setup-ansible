@@ -44,7 +44,5 @@
         port: 9345
 
     - name: Start rke2-agent service
-      ansible.builtin.service:
-        name: rke2-agent
-        state: started
-        enabled: true
+      ansible.builtin.command:
+        cmd: systemctl start rke2-agent
