@@ -50,6 +50,11 @@
         host: control-plane-1
         port: 9345
 
+- name: Wait for port 9345 to become open on the host
+  ansible.builtin.wait_for:
+    timeout: 30
+
+
 - name: Run secondary server service
   become: true
   when: not master | bool
