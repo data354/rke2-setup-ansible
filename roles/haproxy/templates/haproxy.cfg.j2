@@ -37,9 +37,8 @@ listen kubernetes-connect-cluster
     bind *:{{ join_cluster_port }}
     mode tcp
     option log-health-checks
-    balance first
     {% for item in groups['control_plane'] -%}
-    server {{ item }} {{ item }}:{{ join_cluster_port }} maxconn 5 check check-ssl verify none inter 10000
+    server {{ item }} {{ item }}:{{ join_cluster_port }} check check-ssl verify none inter 10000
     {% endfor %}
 
 listen kubernetes-apiserver-https
