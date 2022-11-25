@@ -1,7 +1,7 @@
 ---
 - name: Create Airflow namespace
   ansible.builtin.command:
-    cmd: kubectl create ns airflow
+    cmd: kubectl create ns {{ release_namespace }}
   register: output1
   changed_when: output1.rc != 0
 
@@ -30,7 +30,7 @@
   block:
     - name: Add the Airflow Helm repository
       ansible.builtin.command:
-        cmd: helm repo add airflow  https://data354.github.io/Helmschart354/Stack/
+        cmd: helm repo add stack https://data354.github.io/Helmschart354/Stack/
 
     - name: Update your local Helm chart repository cache
       ansible.builtin.command:
@@ -39,7 +39,14 @@
     - name: Install the airflow Helm chart
       ansible.builtin.command:
         cmd: |
-          helm install {{ release_name }} rancher-stable/rancher
+          helm install {{ release_name }} stack/modernstack 
           --namespace {{ release_namespace }}
-          --replace
-          --set content={{ rancher_hostname }}
+          --set postgres.enabled=true 
+          --set airflow.enabled=true 
+          --set airflow.dags.gitSync.branch=master 
+          --set airflow.dags.gitSync.enabled=true 
+          --set airflow.dags.gitSync.repo={{ dags_repo }} 
+          --set airflow.dags.gitSync.sshKeySecret={{ sshKeysecret }} 
+          --set airflow.dags.gitSync.subPath={{ subpath }} 
+          --set airflow.images.airflow.repository={{ dags_repo }}
+          --set airflow.images.airflow.tag={{ tag }}

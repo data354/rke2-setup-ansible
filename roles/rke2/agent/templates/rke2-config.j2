@@ -1,2 +1,2 @@
-server: https://{{ loadbalancer_addresses[0] }}:{{ join_cluster_port }}
+server: https://{{ groups['control_plane'][0] }}:{{ join_cluster_port }}
 token: {{ cluster_token }}
