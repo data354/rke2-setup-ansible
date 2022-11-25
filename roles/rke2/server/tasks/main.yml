@@ -58,7 +58,7 @@
 - name: Run secondary server service
   become: true
   when: not master | bool
-  ignore_errors: true
+  # ignore_errors: true
   ansible.builtin.service:
     name: rke2-server
     state: started
