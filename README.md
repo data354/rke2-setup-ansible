@@ -62,4 +62,13 @@ All these playbooks are executed in the previous order thanks to the playbook `m
 
 **Setup the cluster**
 
+To display time taken for tasks when running ansible-playbook
+
+`sudo nano -m /etc/ansible/ansible.cfg`
+
+```
+[defaults]
+callbacks_enabled = profile_tasks
+```
+
 To launch the project, run the command : `ansible-playbook -i inventory.ini main.playbook.yml`
