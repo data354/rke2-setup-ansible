@@ -9,6 +9,6 @@ user: k8s
 kube_config_directory: /home/{{ user }}/.kube
 install_rancher: true
 install_longhorn: true
-k8s_servive_nodeport:
+k8s_services_nodeport:
   - name: airflow-ui
     port: 30000
