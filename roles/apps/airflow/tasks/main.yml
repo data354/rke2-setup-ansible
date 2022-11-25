@@ -7,7 +7,7 @@
 
 - name: Create Secret with machine private key
   ansible.builtin.command:
-    cmd: kubectl create secret generic ssh_key --from-file={{ pr_key_file }} -n airflow
+    cmd: kubectl create secret generic airflow-git-secret --from-file=gitSshKey={{ pr_key_file }} -n airflow
   register: output2
   changed_when: output2.rc != 0
   
@@ -18,12 +18,12 @@
   register: output3
   changed_when: output3.rc != 0
 
-- name: A helpful reminder of what to look out for post-update
+- name: Confirmation de la copie de la clé ssh sur le compte github
   ansible.builtin.pause:
     prompt: |
 
       {{ output3.stdout }}
 
-      Assurer-vous d'ajouter la clé ci-dessus sur  votre compte github pour la suite.
-      Une fois fait, appuyer entrer pour continuer la procedure.
+      Assurer-vous d'ajouter la clé ci-dessus sur votre compte github pour créer la connection avec Airflow.
+      Une fois ceci fait, appuyer entrer pour continuer l'installation.
 

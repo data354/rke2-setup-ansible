@@ -2,9 +2,9 @@
 
 ### Description
 
-Ce projet est le setup d'un environnement de production base sur un cluster kubernetes pour le deploiement d'une stack Big Data. Il automatise la mise en place d'un cluster k8s hautement disponible sur la distribution RKE2. 
+This project is the setup of a production environment based on a kubernetes cluster for the deployment of a Big Data stack. It automates the setup of a highly available k8s cluster on the RKE2 distribution and the installation of all software stacks.
 
-Il prend en compte les fonctions suivantes :
+It takes into account the following features:
 
 * Scaling (up and down)
 * Load balamcer et proxy
@@ -20,7 +20,7 @@ Il prend en compte les fonctions suivantes :
 
 * **Nodes**
 
-  * At least 3 control planes
+  * An odd number of control plane (minimum 3)
   * Many node as data plane are permitted
   * An machine as load balancer and proxy
   * An external machine for backup
@@ -43,5 +43,3 @@ Il prend en compte les fonctions suivantes :
   * Master ansible public key must be copied on each machine of the k8s cluster to avoid typing password during playbooks execution
 
 ### Process
-
-Ce projet permet
