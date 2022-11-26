@@ -8,3 +8,8 @@
   hosts: k8s
   roles:
     - prerequises/open_iscsi
+
+- name: Install open iscsi
+  hosts: localhost
+  roles:
+    - prerequises/modules

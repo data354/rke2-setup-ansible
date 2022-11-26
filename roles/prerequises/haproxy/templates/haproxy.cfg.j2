@@ -30,7 +30,7 @@ listen stats
     bind *:{{ haproxy_stats_port }}
     stats enable
     stats uri /stats
-    stats refresh 2s
+    stats refresh 5s
     stats auth {{ haproxy_admin_user }}:{{ haproxy_admin_password }}
 
 listen kubernetes-connect-cluster
