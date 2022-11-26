@@ -43,11 +43,12 @@
       Une fois ceci fait, appuyer entrer pour continuer l'installation.
 
 - name: Install Airflow
+  when: install_airflow
   block:
     - name: Add the Airflow Helm repository
       kubernetes.core.helm_repository:
         name: stack
-        repo_url: "https://data354.github.io/Helmschart354/Stack/"
+        repo_url: "{{ stack_repo }}"
 
     - name: Install the airflow Helm chart
       kubernetes.core.helm:
@@ -66,7 +67,6 @@
           airflow.dags.gitSync.subPath={{ subpath }} 
           airflow.images.airflow.repository={{ img_registry }}
           airflow.images.airflow.tag={{ tag }}
-
 
     - name: Create Secret with machine private key
       kubernetes.core.k8s:
