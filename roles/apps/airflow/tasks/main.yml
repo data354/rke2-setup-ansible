@@ -41,3 +41,46 @@
 
       Assurer-vous d'ajouter la clé ci-dessus sur votre compte github pour créer la connection avec Airflow.
       Une fois ceci fait, appuyer entrer pour continuer l'installation.
+
+- name: Install Airflow
+  block:
+    - name: Add the Airflow Helm repository
+      kubernetes.core.helm_repository:
+        name: stack
+        repo_url: "https://data354.github.io/Helmschart354/Stack/"
+
+    - name: Install the airflow Helm chart
+      kubernetes.core.helm:
+        name: "{{ release_name }}"
+        chart_ref: stack/modernstack
+        release_namespace: "{{ release_namespace }}"
+        create_namespace: true
+        update_repo_cache: true
+        values:
+          postgres.enabled=true 
+          airflow.enabled=true 
+          airflow.dags.gitSync.branch=master 
+          airflow.dags.gitSync.enabled=true 
+          airflow.dags.gitSync.repo={{ dags_repo }}
+          airflow.dags.gitSync.sshKeySecret={{ sshKeySecret }}
+          airflow.dags.gitSync.subPath={{ subpath }} 
+          airflow.images.airflow.repository={{ img_registry }}
+          airflow.images.airflow.tag={{ tag }}
+
+
+    - name: Create Secret with machine private key
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: rbac.authorization.k8s.io/v1
+          kind: ClusterRoleBinding
+          metadata:
+            name: service-all-pod
+          roleRef:
+            apiGroup: rbac.authorization.k8s.io
+            kind: ClusterRole
+            name: service-all
+          subjects:
+          - kind: ServiceAccount
+            name: stack-aiflow-worker
+            namespace: "{{ release_namespace }}"
