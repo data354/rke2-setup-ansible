@@ -1,7 +1,7 @@
 ---
 - name: Install helm plugin diff
   hosts: localhost
-  gather_facts: no
+  gather_facts: false
   tasks:
     - name: Install helm plugin diff
       failed_when: false
@@ -10,19 +10,19 @@
 
 - name: Install apps prerequises
   hosts: localhost
-  gather_facts: no
+  gather_facts: false
   roles:
     - apps/cert_manager
 
 - name: Install rancher admin
   hosts: localhost
-  gather_facts: no
+  gather_facts: false
   roles:
     - apps/rancher
 
 - name: Install storage proviser (longhorn)
   hosts: localhost
-  gather_facts: no
+  gather_facts: false
   roles:
     - apps/storage
 
