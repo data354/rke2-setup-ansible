@@ -58,13 +58,13 @@
         create_namespace: true
         update_repo_cache: true
         values:
-          postgres.enabled=true 
-          airflow.enabled=true 
-          airflow.dags.gitSync.branch=master 
-          airflow.dags.gitSync.enabled=true 
+          postgres.enabled=true
+          airflow.enabled=true
+          airflow.dags.gitSync.branch=master
+          airflow.dags.gitSync.enabled=true
           airflow.dags.gitSync.repo={{ dags_repo }}
           airflow.dags.gitSync.sshKeySecret={{ sshKeySecret }}
-          airflow.dags.gitSync.subPath={{ subpath }} 
+          airflow.dags.gitSync.subPath={{ subpath }}
           airflow.images.airflow.repository={{ img_registry }}
           airflow.images.airflow.tag={{ tag }}
 
