@@ -10,12 +10,14 @@
 
 - name: Install apps prerequises
   hosts: localhost
+  tags: apps
   gather_facts: false
   roles:
     - apps/cert_manager
 
 - name: Install rancher admin
   hosts: localhost
+  tags: apps
   gather_facts: false
   roles:
     - apps/rancher

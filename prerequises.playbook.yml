@@ -1,15 +1,18 @@
 ---
 - name: Install haproxy
   hosts: localhost
+  tags: proxy
   roles:
     - prerequises/haproxy
 
 - name: Install open iscsi
+  tags: packages
   hosts: k8s
   roles:
     - prerequises/open_iscsi
 
-- name: Install open iscsi
+- name: Install module
+  tags: packages
   hosts: localhost
   roles:
     - prerequises/modules

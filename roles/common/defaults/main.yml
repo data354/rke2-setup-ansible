@@ -13,3 +13,5 @@ install_airflow: false
 k8s_services_nodeport:
   - name: airflow-ui
     port: 30000
+  - name: minio-ui
+    port: 30001

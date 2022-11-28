@@ -11,7 +11,7 @@
 
     - name: Install Haproxy on RedHat system
       when: ansible_facts['os_family'] == "RedHat"
-      ansible.builtin.apt:
+      ansible.builtin.yum:
         state: present
         name: haproxy
 
