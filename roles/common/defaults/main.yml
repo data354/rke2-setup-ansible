@@ -15,3 +15,13 @@ k8s_services_nodeport:
     port: 30000
   - name: minio-ui
     port: 30001
+  - name: minio-ui
+    port: 30001
+  - name: grafana-ui
+    port: 30100
+  - name: loki
+    port: 30101
+  - name: prometheus-ui
+    port: 30102
+  - name: fuentd
+    port: 30103
