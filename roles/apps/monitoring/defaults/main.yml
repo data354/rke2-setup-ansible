@@ -1,6 +1,5 @@
 ---
 release_name: "rancher"
-release_version: "v2.4"
 release_namespace: "cattle-system"
 rancher_hostname: "{{ public_domain_name }}"
 rancher_bootstrapPassword: dimanche54

@@ -15,8 +15,8 @@ k8s_services_nodeport:
     port: 30000
   - name: minio-ui
     port: 30001
-  - name: minio-ui
-    port: 30001
+  - name: trino-ui
+    port: 30003
   - name: grafana-ui
     port: 30100
   - name: loki

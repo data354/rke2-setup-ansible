@@ -13,7 +13,6 @@
         chart_ref: rancher-stable/rancher
         release_namespace: "{{ release_namespace }}"
         create_namespace: true
-        chart_version: "{{ release_version }}"
         update_repo_cache: true
         values:
           hostname={{ rancher_hostname }}
