@@ -27,19 +27,21 @@
         regexp: '127\.0\.0\.1'
         replace: '{{ loadbalancer_addresses[0] }}'
 
-- name: Install Kubectl on Debian system
-  when: ansible_facts['os_family'] == "Debian"
+- name: Install Kubectl
   become: true
-  ansible.builtin.apt:
-    name: kubectl
-    state: present
+  block:
+    - name: Download kubectl bin file
+      delegate_to: control-plane-1
+      ansible.builtin.slurp:
+        src: /var/lib/rancher/rke2/bin/kubectl
+      register: kubectl
 
-- name: Install Kubectl on RedHat system
-  when: ansible_facts['os_family'] == "RedHat"
-  become: true
-  ansible.builtin.apt:
-    name: kubectl
-    state: present
+    - name: Create local kubectl bin file
+      ansible.builtin.copy:
+        content: "{{ kubectl.content | b64decode }}"
+        dest: /usr/bin/kubectl
+        mode: "707"
+        backup: true
 
 - name: Install Helm
   become: true
