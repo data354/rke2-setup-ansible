@@ -8,24 +8,12 @@
       metadata:
         name: "{{ release_namespace }}"
 
-- name: Get host private key
+- name: Create Secret with machine private key
+  failed_when: false
   ansible.builtin.command:
-    cmd: cat {{ pr_key_file }}
+    cmd: kubectl create secret generic airflow-git-secret --from-file=gitSshKey={{ pr_key_file }} -n {{ release_namespace }}
   register: output2
   changed_when: output2.rc != 0
-
-- name: Create Secret with machine private key
-  kubernetes.core.k8s:
-    state: present
-    definition:
-      apiVersion: v1
-      kind: Secret
-      type: Opaque
-      data:
-        gitSshKey: "{{ output2.stdout | b64encode }}"
-      metadata:
-        name: "{{ sshKeySecret }}"
-        namespace: "{{ release_namespace }}"
 
 - name: Get host public key
   ansible.builtin.command:
