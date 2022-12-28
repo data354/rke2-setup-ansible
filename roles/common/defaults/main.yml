@@ -1,6 +1,6 @@
 ---
 loadbalancer_addresses: ["10.240.0.2", "master-ansible"]
-loadbalancer_public_address: "34.121.151.84"
+loadbalancer_public_address: "34.27.128.193"
 public_domain_name: "{{ loadbalancer_public_address }}.sslip.io"
 join_cluster_port: 9345
 apiserver_port: 6443
@@ -10,11 +10,14 @@ kube_config_directory: /home/{{ user }}/.kube
 install_rancher: true
 install_longhorn: true
 install_airflow: false
+install_monitoring: false
 k8s_services_nodeport:
   - name: airflow-ui
     port: 30000
   - name: minio-ui
     port: 30001
+  - name: postgres
+    port: 30002
   - name: trino-ui
     port: 30003
   - name: grafana-ui

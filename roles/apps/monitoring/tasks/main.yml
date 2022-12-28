@@ -1,23 +1,25 @@
 ---
-- name: Deploy Rancher UI Admin
-  when: install_rancher
+- name: Deploy Kube-prometheus-stack
+  when: install_monitoring
   block:
-    - name: Add the Rancher Helm repository
+    - name: Add the rancher-charts Helm repository
       kubernetes.core.helm_repository:
-        name: rancher-stable
-        repo_url: "https://releases.rancher.com/server-charts/stable"
+        name: rancher-charts
+        repo_url: "https://git.rancher.io/charts"
 
-    - name: Install the rancher Helm chart
+    - name: Install the rancher-monitoring Helm chart
       kubernetes.core.helm:
         name: "{{ release_name }}"
-        chart_ref: rancher-stable/rancher
+        chart_ref: rancher-charts/rancher-monitoring
         release_namespace: "{{ release_namespace }}"
         create_namespace: true
         update_repo_cache: true
         values:
-          hostname={{ rancher_hostname }}
-          bootstrapPassword={{ rancher_bootstrapPassword }}
-          ingress.tls.source={{ rancher_ingress_tls_source }}
-          letsEncrypt.email={{ rancher_letsEncrypt_email }}
-          letsEncrypt.ingress.class={{ rancher_letsEncrypt_ingress_class }}
-          letsEncrypt.environment={{ rancher_letsEncrypt_env }}
+          prometheus.prometheusSpec.evaluationInterval=1m
+          prometheus.prometheusSpec.retentionSize=50GiB
+          prometheus.prometheusSpec.scrapeInterval=1m
+          rke2ControllerManager.enabled=true
+          rke2Scheduler.enabled=true
+          rke2Proxy.enabled=true
+          rke2IngressNginx.enabled=true
+          rke2Etcd.enabled=true

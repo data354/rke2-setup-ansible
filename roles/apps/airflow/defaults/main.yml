@@ -1,7 +1,7 @@
 ---
 pr_key_file: "/home/{{ user }}/.ssh/id_rsa"
 release_name: "stack"
-release_namespace: "airflow"
+release_namespace: "default"
 dags_repo: "ssh://git@github.com/data354/Data-stack.git"
 subpath: "airflow/dags"
 tag: "v5"
