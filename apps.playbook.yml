@@ -30,5 +30,12 @@
 
 - name: Deploy Airflow stack
   hosts: localhost
+  tags: airflow
   roles:
     - apps/airflow
+
+- name: Deploy Monitoring stack
+  hosts: localhost
+  tags: monitoring
+  roles:
+    - apps/monitoring

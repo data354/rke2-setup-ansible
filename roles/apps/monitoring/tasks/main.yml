@@ -2,15 +2,17 @@
 - name: Deploy Kube-prometheus-stack
   when: install_monitoring
   block:
-    - name: Add the rancher-charts Helm repository
-      kubernetes.core.helm_repository:
-        name: rancher-charts
-        repo_url: "https://git.rancher.io/charts"
+    - name: Install the rancher-monitoring-crd Helm chart
+      kubernetes.core.helm:
+        name: "{{ crds_release_name }}"
+        chart_ref: "{{ crds_chart_ref }}"
+        release_namespace: "{{ crds_release_namespace }}"
+        create_namespace: true
 
     - name: Install the rancher-monitoring Helm chart
       kubernetes.core.helm:
         name: "{{ release_name }}"
-        chart_ref: rancher-charts/rancher-monitoring
+        chart_ref: "{{ chart_ref }}"
         release_namespace: "{{ release_namespace }}"
         create_namespace: true
         update_repo_cache: true
