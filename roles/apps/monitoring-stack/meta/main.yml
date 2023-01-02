@@ -1,7 +1,7 @@
 galaxy_info:
-  role_name: rancher
+  role_name: monitoring_stack
   author: data354
-  description: A set of settings and variables for rancher deployment
+  description: A set of settings and variables for data stack monitoring deployment
   license: MIT
   min_ansible_version: "2.10"
   platforms:

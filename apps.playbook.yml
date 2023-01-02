@@ -28,11 +28,17 @@
   roles:
     - apps/storage
 
+- name: Deploy Monitoring cluster
+  hosts: localhost
+  tags: monitoring
+  roles:
+    - apps/monitoring-cluster
+
 - name: Deploy Monitoring stack
   hosts: localhost
   tags: monitoring
   roles:
-    - apps/monitoring
+    - apps/monitoring-stack
 
 - name: Deploy Airflow stack
   hosts: localhost

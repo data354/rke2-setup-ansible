@@ -10,7 +10,8 @@ kube_config_directory: /home/{{ user }}/.kube
 install_rancher: true
 install_longhorn: true
 install_airflow: false
-install_monitoring: true
+install_monitoring_cluster: true
+install_monitoring_stack: false
 k8s_services_nodeport:
   - name: airflow-ui
     port: 30000

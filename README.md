@@ -7,7 +7,7 @@ This project is the setup of a production environment based on a kubernetes clus
 It takes into account the following features:
 
 * Scaling (up and down)
-* Load balamcer et proxy
+* Load balancer et proxy
 * Nodes Security
 * Backup (Etcd and PV)
 * Multiple OS family (Debian and Redhat)
@@ -53,7 +53,7 @@ It takes into account the following features:
 
 There are four playbooks:
 
-* `prerequises.playbook.yml`  :
+* `prerequises.playbook.yml`  : 
 * `cluster.playbook.yml` : this playbook contains the roles for the creatin of the cluster (Server and agent)
 * `client.playbook.yml` : this playbook contains locak software to manage cluster
 * `apps.playbook.yml` : this playbook contains contains the different applications of the stack to install
