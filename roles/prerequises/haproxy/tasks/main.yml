@@ -31,7 +31,7 @@
       ansible.builtin.command:
         cmd: haproxy -f {{ haproxy_config_dir }}
 
-    - name: Set authorized keys of {{ item.requester }}
+    - name: Set authorized keys
       ansible.builtin.authorized_key:
         user: "{{ user }}"
         state: present
